@@ -88,6 +88,9 @@ double boltzmann_probability(double temperature, double energy_x, double energy_
 
 int main() {
 
+    FILE *fptr;
+    fptr = fopen("met_has_data.txt", "w");
+
     srand(time(NULL));
 
     long N = 50;
@@ -103,12 +106,12 @@ int main() {
         }
     }   
 
-    printf("Initial array:\n");
+    fprintf(fptr, "Initial array:\n");
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < N; j++) {
-            printf("%ld,", data[i][j]);
+            fprintf(fptr,"%ld, ", data[i][j]);
         }
-        printf("\n");
+        fprintf(fptr, "\n");
     }
 
     long long end_time = 1000;
@@ -171,24 +174,26 @@ int main() {
 
     }
 
-    printf("New array:\n");
+    fprintf(fptr, "New array:\n");
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < N; j++) {
-            printf("%ld,", data[i][j]);
+            fprintf(fptr, "%ld, ", data[i][j]);
         }
-        printf("\n");
+        fprintf(fptr, "\n");
     }
 
     /* Comparing initial and final data grids */
-    printf("Array differences:\n");
+    fprintf(fptr, "Array differences:\n");
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < N; j++) {
             grid_diff[i][j] = data[i][j] - init_data[i][j];
 
-            printf("%ld,", grid_diff[i][j]);
+            fprintf(fptr, "%ld, ", grid_diff[i][j]);
         }
-        printf("\n");
+        fprintf(fptr, "\n");
     }
+
+    fclose(fptr);
 
 
     return 0;
