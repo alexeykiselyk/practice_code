@@ -47,11 +47,11 @@ end function vector_norm
 module my_mod
   implicit none
 
-  private private_var ! All entities are now module-private by default
+  private ! All entities are now module-private by default
   public public_var, print_mat  ! Explicitly export public entities
 
   real, parameter :: public_var = 2
-  integer :: private_var
+!   integer :: private_var
 
 contains
 
