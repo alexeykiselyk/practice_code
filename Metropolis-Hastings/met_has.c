@@ -88,8 +88,10 @@ double boltzmann_probability(double temperature, double energy_x, double energy_
 
 int main() {
 
-    FILE *fptr;
-    fptr = fopen("met_has_data.txt", "w");
+    FILE *fptr1, *fptr2, *fptr3;
+    fptr1 = fopen("init_grid.csv", "w");
+    fptr2 = fopen("final_grid.csv", "w");
+    fptr3 = fopen("grid_diffs.csv", "w");
 
     srand(time(NULL));
 
@@ -106,12 +108,12 @@ int main() {
         }
     }   
 
-    fprintf(fptr, "Initial array:\n");
+    // fprintf(fptr1, "Initial array:\n");
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < N; j++) {
-            fprintf(fptr,"%ld, ", data[i][j]);
+            fprintf(fptr1,"%ld, ", data[i][j]);
         }
-        fprintf(fptr, "\n");
+        fprintf(fptr1, "\n");
     }
 
     long long end_time = 1000;
@@ -174,27 +176,28 @@ int main() {
 
     }
 
-    fprintf(fptr, "New array:\n");
+    // fprintf(fptr2, "Final array:\n");
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < N; j++) {
-            fprintf(fptr, "%ld, ", data[i][j]);
+            fprintf(fptr2, "%ld, ", data[i][j]);
         }
-        fprintf(fptr, "\n");
+        fprintf(fptr2, "\n");
     }
 
     /* Comparing initial and final data grids */
-    fprintf(fptr, "Array differences:\n");
+    // fprintf(fptr3, "Array differences:\n");
     for(int i = 0; i < N; i++) {
         for(int j = 0; j < N; j++) {
             grid_diff[i][j] = data[i][j] - init_data[i][j];
 
-            fprintf(fptr, "%ld, ", grid_diff[i][j]);
+            fprintf(fptr3, "%ld, ", grid_diff[i][j]);
         }
-        fprintf(fptr, "\n");
+        fprintf(fptr3, "\n");
     }
 
-    fclose(fptr);
-
+    fclose(fptr1);
+    fclose(fptr2);
+    fclose(fptr3);
 
     return 0;
 }
